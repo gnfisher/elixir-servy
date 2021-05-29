@@ -1,6 +1,7 @@
 # Servy
 
-**TODO: Add description**
+This is code written while working through the [Pragmatic Studio's Elixir
+course](https://pragmaticstudio.com/courses/elixir).
 
 ## Installation
 
