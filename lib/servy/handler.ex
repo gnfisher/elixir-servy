@@ -18,6 +18,10 @@ defmodule Servy.Handler do
     |> format_response
   end
 
+  def route(%Conv{method: "POST", path: "/bears", params: params} = conv) do
+    %{conv | status: 201, resp_body: "Created bear #{params["name"]} of type #{params["type"]}" }
+  end
+
   def route(%Conv{method: "GET", path: "/pages/" <> file} = conv) do
     @pages_path
     |> Path.join("#{file}.html")
@@ -35,7 +39,7 @@ defmodule Servy.Handler do
 
   def format_response(%Conv{} = conv) do
     """
-      HTTP/1.1 #{Conv.full_status conv}
+      HTTP/1.1 #{Conv.full_status(conv)}
       Content-Type: text/html
       Content-Length: #{String.length(conv.resp_body)}
 
@@ -92,5 +96,16 @@ request6 = """
 
 """
 
-response6 = Servy.Handler.handle(request6)
+post_request = """
+POST /bears HTTP/1.1
+Host: example.com
+User-Agent: ExampleBrowser/1.0
+Accept: */*
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 21
+
+name=Baloo&type=Brown
+"""
+
+response6 = Servy.Handler.handle(post_request)
 IO.puts(response6)
