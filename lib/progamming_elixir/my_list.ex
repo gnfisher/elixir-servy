@@ -1,10 +1,10 @@
 defmodule ProgrammingElixir.MyList do
-  def hello do
-    "Hi"
+  def mapsum([], _func), do: 0
+
+  def mapsum([head | _tail], _func) when not is_integer(head) do
+    raise "Not an integer"
   end
-  def mapsum([], _func) do
-    0
-  end
+
   def mapsum([head | tail], func) do
     func.(head) + mapsum(tail, func)
   end
