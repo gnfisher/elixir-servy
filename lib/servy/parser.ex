@@ -7,7 +7,7 @@ defmodule Servy.Parser do
 
     [method, path, _] =
       request_line
-      |> String.trim
+      |> String.trim()
       |> String.split(" ")
 
     params = parse_params(body)
@@ -20,6 +20,6 @@ defmodule Servy.Parser do
   end
 
   defp parse_params(params_string) do
-    params_string |> String.trim |> URI.decode_query
+    params_string |> String.trim() |> URI.decode_query()
   end
 end
